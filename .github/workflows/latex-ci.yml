@@ -16,15 +16,22 @@ jobs:
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: submission3.tex
           compiler: latexmk # Can also use xelatex, lualatex, or latexmk
           args: "-interaction=nonstopmode -pdf"
           texlive_version: 2024
-          working_directory: docs/submission3
+          root_file: |
+            docs/submission2/submission2.tex
+            docs/submission3/submission3.tex
+            docs/DemoEqualityContribution/DemoEqualityContribution.tex
+            docs/DraftDesignDoc/DraftDesignDoc.tex
 
       - name: Upload PDFs as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: compiled-pdfs
-          path: docs/submission3/submission3.pdf
+          path: |
+            docs/submission2/submission2.pdf
+            docs/submission3/submission3.pdf
+            docs/DemoEqualityContribution/DemoEqualityContribution.pdf
+            docs/DraftDesignDoc/DraftDesignDoc.pdf
 
