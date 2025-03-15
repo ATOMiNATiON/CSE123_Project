@@ -19,6 +19,7 @@ jobs:
           compiler: latexmk # Can also use xelatex, lualatex, or latexmk
           args: "-interaction=nonstopmode -pdf"
           texlive_version: 2024
+          work_in_root_file_dir: true
           root_file: |
             docs/submission2/submission2.tex
             docs/submission3/submission3.tex
