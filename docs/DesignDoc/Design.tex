@@ -194,6 +194,71 @@ This simple model helps protect against unauthorized access while balancing usab
 
 These models helped guide hardware component choices (such as low-power microcontrollers and solenoid driver circuits), define software timing thresholds, and enforce robust security policies in our firmware design.
 
+\subsection{Final Design}
+
 \input{Battery_life.tex}
 
 \input{Ownership_access_control.tex}
+
+%% Server Infrastructure %%
+
+\subsubsection{Database and Server Infrastructure}
+
+Figure \ref{fig:serverInfrasture} illustrates the many-to-many relationship within our server infrastructure design. In this architecture, a single user can be associated with multiple smart locks, and each lock can be controlled by multiple users. This flexible relationship model allows for shared access scenarios—such as families, property managers, or Airbnb hosts—where multiple authorized users may need to manage or access the same lock.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.65\textwidth]{img/serverInfrastructure.png}
+    \caption{Server Infrastructure}
+    \label{fig:serverInfrasture}
+\end{figure}
+
+The database schema is designed to support this many-to-many relationship efficiently through the use of a join table that links users and locks. This structure lays the foundation for scalable and secure access management in future implementations.
+
+For our manufactured product, we plan to migrate from Firebase to a more robust backend using PostgreSQL for the database and Amazon Web Services (AWS) for cloud hosting and scalability. PostgreSQL is a powerful open-source relational database that offers strong support for complex queries, relationships, and data integrity—making it ideal for managing multiple users, locks, and their associations. Its flexibility and reliability are critical for handling real-world access control logic, audit logging, and time-based features such as PIN expiration.
+
+AWS will provide the underlying infrastructure to host our backend services, offering high availability, global reach, and integration with other tools such as AWS Lambda, S3, and IAM for secure identity and access management. By leveraging AWS, we gain better control over security, performance, and scalability, all of which are essential for deploying a production-ready smart lock system that supports many users and devices.
+
+This upgrade positions our system for commercial deployment while ensuring a secure, efficient, and maintainable server-side architecture.
+
+%% Bluetooth sharing wifi %%
+
+\subsubsection{Bluetooth Wi-Fi Provisioning}
+
+In our current prototype, Wi-Fi provisioning is achieved by having the device temporarily act as a wireless access point. Users connect to this access point and enter their Wi-Fi credentials and API key through a web interface. While functional, this method introduces unnecessary complexity for end users and is not ideal for a consumer-ready product.
+
+In the manufactured product, we plan to implement Bluetooth-based Wi-Fi provisioning using our custom microcontroller. During setup, users will connect to the device via Bluetooth through the mobile application. The app will then securely transmit the Wi-Fi credentials directly to the lock, allowing it to connect to the appropriate network without requiring the user to switch networks or open a separate interface.
+
+This approach greatly simplifies the onboarding process and aligns with common smart home device setup standards. It enhances the user experience by making setup faster, more intuitive, and less prone to user error. Bluetooth provisioning also improves compatibility with a broader range of mobile devices and operating systems.
+
+By transitioning to Bluetooth for initial network configuration, we aim to provide a seamless and user-friendly setup process that is better suited for deployment at scale.
+
+%% Die Casting Case %%
+
+\subsubsection{Die Casting Case}
+
+As part of our manufactured product design, we plan to transition from 3D-printed enclosures to a die-cast metal casing. This upgrade is aimed at improving both the durability and aesthetic appeal of the smart lock.
+
+Die casting allows us to produce a high-quality, uniform housing that can withstand daily use, environmental exposure, and tampering attempts more effectively than plastic prototypes. The use of metal, such as aluminum or zinc alloy, also adds a professional finish to the final product while enhancing the overall strength and lifespan of the device.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{img/dieCast1.png}
+  \caption{Die Cast Model}
+  \label{fig:dieCast1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.7\linewidth]{img/dieCast2.png}
+  \caption{Sketch of Die Cast modell}
+  \label{fig:dieCast2}
+\end{subfigure}
+\caption{Die Cast Casing}
+\label{fig:dieCast}
+\end{figure}
+
+Figures \ref{fig:dieCast1} and \ref{fig:dieCast2} show our preliminary die-cast casing model and sketch. These designs reflect the key functional elements of the smart lock, including secure mounting points for the keypad, internal compartments for electronics, and a viewing area to indicate lock status. The internal layout was carefully designed to simplify assembly, minimize wiring complexity, and ensure heat dissipation where needed.
+
+By adopting die casting for mass production, we ensure our product is manufacturable at scale while meeting real-world demands for security, reliability, and sleek appearance.
