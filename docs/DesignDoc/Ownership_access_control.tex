@@ -1,8 +1,8 @@
-\subsection{Ownership and Access Control}
+\subsubsection{Ownership and Access Control}
 
 Managing ownership and granting user access are critical to ensuring that SmartLock devices remain secure while allowing for flexible sharing. This system must allow primary users to delegate lock access to other users, while ensuring that the delegated users have the appropriate permissions.
 
-\subsubsection{Ownership Model}
+\subsubsection*{Ownership Model}
 
 Each SmartLock must have a primary owner who holds full control over the device and its permissions.
 
@@ -11,7 +11,7 @@ Each SmartLock must have a primary owner who holds full control over the device 
   \item \textbf{Ownership Table:} Store ownership information in the database alongside lock records (e.g., \texttt{lock\_id}, \texttt{owner\_id}).
 \end{itemize}
 
-\subsubsection{Access Delegation and Permissions}
+\subsubsection*{Access Delegation and Permissions}
 
 Primary owners can grant access to other users, allowing them to interact with specific locks under defined conditions.
 
@@ -21,7 +21,7 @@ Primary owners can grant access to other users, allowing them to interact with s
   \item \textbf{Revocation and Expiration:} Include features for the owner to revoke access at any time or set expiration timers for temporary access.
 \end{itemize}
 
-\subsubsection{User Interface for Access Management}
+\subsubsection*{User Interface for Access Management}
 
 The frontend application should allow users to manage and review access settings.
 
@@ -38,12 +38,11 @@ The frontend application should allow users to manage and review access settings
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
-\subsection{History and Status Logging}
+\subsubsection{History and Status Logging}
 
  Logging improves security, aids in diagnostics, and enhances transparency for users. The SmartLock system should log both user actions and technical status changes.
 
-\subsubsection{History Log of User Actions}
+\subsubsection*{History Log of User Actions}
 
 Tracking user interactions with locks helps in audits, diagnostics, and usage insights.
 
@@ -53,7 +52,7 @@ Tracking user interactions with locks helps in audits, diagnostics, and usage in
   \item \textbf{User Access to Logs:} Allow users to view logs for locks they own or have access to.
 \end{itemize}
 
-\subsubsection{Status Log for Lock Health Monitoring}
+\subsubsection*{Status Log for Lock Health Monitoring}
 
 Status logs are essential for monitoring device reliability and connectivity.
 
@@ -62,7 +61,7 @@ Status logs are essential for monitoring device reliability and connectivity.
   \item \textbf{Technical Dashboard:} Visualize connection stability and firmware state for each lock.
 \end{itemize}
 
-\subsubsection{Action Confirmation and Notifications}
+\subsubsection*{Action Confirmation and Notifications}
 
 Users must be notified when actions are completed to reinforce trust and responsiveness.
 
