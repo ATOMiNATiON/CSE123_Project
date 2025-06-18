@@ -18,15 +18,38 @@ For our functional prototype, we used the ESP32-C3 microcontroller, solenoid loc
 
 For our hardware, we also used up 99\% of the ESP32-C3 storage. We also utilized power supplies for our functional prototype since the solenoid lock required 12V to unlock the lock. 
 
+\subparagraph{Additional Information}
+\begin{itemize}
+    \item IO signal from ESP32-C3 to solenoid lock was too weak, so we used a transistor and had the IO pin from the ESP32-C3 control the gate of the transistor and a 12V power supply through the source of the transistor. This would allow the transistor to act as a switch, allowing the 12V power supply to flow through the solenoid lock whenever the IO pin from the ESP32-C3 was activated.
+    \item Blinked a blue LED to indicate when the lock was searching for Wi-Fi, and turned it off when the lock was connected to Wi-Fi.
+    \item Blinked a green LED to indicate when a keypad input was sensed by the ESP32-C3, and also blinked it 4 times fast to indicate that an invalid pin was entered and buffer was cleared.
+    \item Additionally, we used the built-in LED on the ESP32-C3 to indicate when the lock was locked or unlocked. The LED would turn on when the lock was unlocked and turn off when the lock was locked.
+    \item We used a 12V power supply because we couldn't purchase a battery in time that could provide power for both the solenoid lock and the ESP32-C3. The solenoid lock required 12V to unlock, while the ESP32-C3 only required 3.3V. 
+    \item We used WiFi manager for WiFi provisioning, which demonstrated a product user first receiving their smartlock and getting it connected to their WiFi.
+\end{itemize}
+
 \subsubsection{Software}
 
 The functional prototype of the app currently uses the Swift language. This is what we wanted especially for native IOS apps, and in our manufactured design we plan to use the same language. Though we also would like to produce the same app on other non IOS devices as well. The app currently is able to allow users to sign in and sign up, unlock and lock the door, generating one time pins, accessing emergency pins, and logging out. 
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1\textwidth]{img/softwareComponents.png}
+    \includegraphics[width=0.75\textwidth]{img/softwareComponents.png}
     \label{fig:softwareComponents}
 \end{figure}
+
+\subparagraph{Additional Information}
+\begin{itemize}
+    \item Used firestore as our example database which allowed us to prove our concept of the app and ESP32-C3 being able to communicate with the database.
+    \item Used Swift and XCode to develop the app, which is the standard for native IOS development.
+    \item App displays simple unlock and lock buttons upon login, and at different tabs at the bottom of the app, users can access the emergency pin, generate one time pins, and logout.
+    \item The emergency pins had a 2FA authentication, where the user would have to enter their password to access the emergency pin. This is to ensure that these pins were meant to be used in case of emergency, and not to be used for everyday use.
+    \item One time pins and emergency use pins were generated via app, stored on firestore database, and retrieved by the ESP32-C3 when the user entered the pin on the keypad. The ESP32-C3 would then check if the pin was valid and if it was, it would unlock the door.
+    \item One time pins and emergency pins were designed to be blacklisted after they were used. This means that once the pin was used, it would be removed from the database and app so that the code could not be used again. This is to ensure that the pin could only be used once and to prevent unauthorized access.
+    \item Upon Wifi reconnection, the ESP32-C3 would check if the emergency pin was used and if it was, it would remove the pin from the database. This is to ensure that the pin could not be used again after it was used.
+    \item Users can sign up using their email and password, with none of this information being stored on device nor on our firestore database.
+    \item We decided to use the Arduino IDE to program the ESP32-C3, due to the documentation and examples available for the ESP32-C3 with the Arduino IDE for firestore.
+\end{itemize}
 
 \subsubsection{Cloud infrastructure}
 
@@ -37,6 +60,14 @@ Our current cloud infrastructure uses firestore database from firebase. Firebase
     \includegraphics[width=1\textwidth]{img/db.png}
     \label{fig:firestoreSchema}
 \end{figure}
+
+\subparagraph{Additional Information}
+\begin{itemize}
+    \item Cloud infrastructure was able to pin codes, and lock states.
+    \item We had boolean values for sending acknowledgements to from the ESP32-C3 to the database in order to confirm that the lock truly received the signal from the phone app.
+    \item Firestore database had a lot of documentation on how to use it with the ESP32-C3, which made it easier to implement. 
+    \item We were able to use firestore database because it established a secure HTTPS connection from all our devices to the database.
+\end{itemize}
 
 \subsubsection{Results}
 
@@ -60,8 +91,10 @@ Our functional prototype was able to unlock and lock a door when asked to from t
 \label{fig:test}
 \end{figure}
 
-%% Testing Prototype %%
 
+
+%% Testing Prototype %%
+\newpage
 \subsection{Testing}
 \subsubsection*{Firebase Mobile Connectivity Test}
 \subparagraph{Test Goals and Purpose}
